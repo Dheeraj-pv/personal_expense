@@ -4,6 +4,8 @@ const bcrypt = require('bcryptjs');
 const bodyParser = require('body-parser');
 const path = require('path');
 const pool = require('./config'); // promise-based pool
+require('dotenv').config();
+
 
 const app = express();
 const saltRounds = 10;
@@ -11,10 +13,11 @@ const PORT = 3000;
 
 // Middleware
 app.use(session({
-  secret: 'mySecretKey',
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: true,
 }));
+
 app.use(express.json());
 
 // Middleware to parse form-urlencoded (from HTML forms)
